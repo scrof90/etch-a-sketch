@@ -2,14 +2,22 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>Etch-a-Sketch</title>
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="styles.css" />
     <script defer type="text/javascript" src="main.js"></script>
   </head>
   <body>
     <h1>Etch-a-Sketch</h1>
     <div class="container">
-
+      <div class="toolbar">
+        <button class="tool" onClick="resetGrid()">Reset</button>
+      </div>
+      <div class="grid-container" id="gridContainer"></div>
     </div>
   </body>
 </html>
