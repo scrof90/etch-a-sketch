@@ -15,33 +15,18 @@
     <h1>Etch-a-Sketch</h1>
     <div class="container">
       <div class="toolbar">
-        <div class="tool dimensions-selector">
-          <div>
-            <label for="rows">Rows:</label>
-            <input
-              type="text"
-              name="rows"
-              value="16"
-              min="1"
-              maxlength="2"
-              size="2"
-              id="rows"
-            />
-          </div>
-          <div>
-            <label for="cols">Columns:</label>
-            <input
-              type="text"
-              name="cols"
-              value="16"
-              min="1"
-              maxlength="2"
-              size="2"
-              id="cols"
-            />
-          </div>
+        <div class="tool slide-container">
+          <label for="density">Grid density:</label>
+          <input
+            type="range"
+            min="8"
+            max="64"
+            value="50"
+            class="slider"
+            id="density"
+          />
         </div>
-        <button class="tool" onClick="resetGrid()">Reset</button>
+        <button class="tool" id="reset">Reset</button>
         <div>
           <label for="color">Color:</label>
           <input type="color" name="color" value="#000000" id="color" />

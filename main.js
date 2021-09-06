@@ -1,16 +1,19 @@
 const grid = document.getElementById('gridContainer');
 
-const rowsInput = document.getElementById('rows');
-rowsInput.addEventListener('input', (e) => (gridRows = e.target.value));
+const densitySlider = document.getElementById('density');
+densitySlider.oninput = function () {
+  gridDensity = this.value;
+};
 
-const colsInput = document.getElementById('cols');
-colsInput.addEventListener('input', (e) => (gridCols = e.target.value));
+const colorPicker = document.getElementById('color');
+colorPicker.oninput = function () {
+  paintColor = this.value;
+};
 
-const colorInput = document.getElementById('color');
-colorInput.addEventListener('input', (e) => (paintColor = e.target.value));
+const resetButton = document.getElementById('reset');
+resetButton.onclick = () => resetGrid();
 
-let gridRows = 16;
-let gridCols = 16;
+let gridDensity = 50;
 let paintColor = '#000000';
 
 function main() {
@@ -19,9 +22,9 @@ function main() {
 
 function resetGrid() {
   clearGrid();
-  grid.style.gridTemplateRows = `repeat(${gridRows}, auto [row])`;
-  grid.style.gridTemplateColumns = `repeat(${gridCols}, auto [col])`;
-  fillGrid(gridRows, gridCols);
+  grid.style.gridTemplateRows = `repeat(${gridDensity}, auto [row])`;
+  grid.style.gridTemplateColumns = `repeat(${gridDensity}, auto [col])`;
+  fillGrid();
 }
 
 function clearGrid() {
@@ -32,23 +35,21 @@ function clearGrid() {
   }
 }
 
-function fillGrid(rows, cols) {
-  const numOfCells = rows * cols;
+function fillGrid() {
+  const numOfCells = gridDensity ** 2;
   for (let i = 0; i < numOfCells; i++) {
-    const cell = document.createElement('div');
-    cell.id = `cell_${i}`;
-    cell.addEventListener('mouseover', colorCell);
+    const cell = createCell(i);
     grid.appendChild(cell);
   }
 }
 
-function colorCell() {
-  if (this.style.backgroundColor === paintColor) return;
-  this.style.backgroundColor = paintColor;
-}
-
-function updateValue(e) {
-  log.textContent = e.target.value;
+function createCell() {
+  const cell = document.createElement('div');
+  cell.addEventListener('mouseover', function () {
+    if (this.style.backgroundColor === paintColor) return;
+    this.style.backgroundColor = paintColor;
+  });
+  return cell;
 }
 
 main();
