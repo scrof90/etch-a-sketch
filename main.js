@@ -11,7 +11,7 @@ colorInput.addEventListener('input', (e) => (paintColor = e.target.value));
 
 let gridRows = 16;
 let gridCols = 16;
-let paintColor = 'black';
+let paintColor = '#000000';
 
 function main() {
   resetGrid();
