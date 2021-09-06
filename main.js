@@ -38,7 +38,7 @@ function clearGrid() {
 function fillGrid() {
   const numOfCells = gridDensity ** 2;
   for (let i = 0; i < numOfCells; i++) {
-    const cell = createCell(i);
+    const cell = createCell();
     grid.appendChild(cell);
   }
 }
