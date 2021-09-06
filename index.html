@@ -15,7 +15,37 @@
     <h1>Etch-a-Sketch</h1>
     <div class="container">
       <div class="toolbar">
+        <div class="tool dimensions-selector">
+          <div>
+            <label for="rows">Rows:</label>
+            <input
+              type="text"
+              name="rows"
+              value="16"
+              min="1"
+              maxlength="2"
+              size="2"
+              id="rows"
+            />
+          </div>
+          <div>
+            <label for="cols">Columns:</label>
+            <input
+              type="text"
+              name="cols"
+              value="16"
+              min="1"
+              maxlength="2"
+              size="2"
+              id="cols"
+            />
+          </div>
+        </div>
         <button class="tool" onClick="resetGrid()">Reset</button>
+        <div>
+          <label for="color">Color:</label>
+          <input type="color" name="color" value="black" id="color" />
+        </div>
       </div>
       <div class="grid-container" id="gridContainer"></div>
     </div>

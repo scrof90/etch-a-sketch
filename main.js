@@ -1,21 +1,27 @@
 const grid = document.getElementById('gridContainer');
 
-let gridWidth = 16;
-let gridHeight = 16;
+const rowsInput = document.getElementById('rows');
+rowsInput.addEventListener('input', (e) => (gridRows = e.target.value));
+
+const colsInput = document.getElementById('cols');
+colsInput.addEventListener('input', (e) => (gridCols = e.target.value));
+
+const colorInput = document.getElementById('color');
+colorInput.addEventListener('input', (e) => (paintColor = e.target.value));
+
+let gridRows = 16;
+let gridCols = 16;
+let paintColor = 'black';
 
 function main() {
-  initGrid();
-}
-
-function initGrid() {
-  grid.style.gridTemplateRows = `repeat(${gridWidth}, 30px [row])`;
-  grid.style.gridTemplateColumns = `repeat(${gridHeight}, 30px [col])`;
-  fillGrid(gridWidth, gridHeight);
+  resetGrid();
 }
 
 function resetGrid() {
   clearGrid();
-  initGrid();
+  grid.style.gridTemplateRows = `repeat(${gridRows}, auto [row])`;
+  grid.style.gridTemplateColumns = `repeat(${gridCols}, auto [col])`;
+  fillGrid(gridRows, gridCols);
 }
 
 function clearGrid() {
@@ -26,16 +32,23 @@ function clearGrid() {
   }
 }
 
-function fillGrid(width, height) {
-  const numOfCells = width * height;
+function fillGrid(rows, cols) {
+  const numOfCells = rows * cols;
   for (let i = 0; i < numOfCells; i++) {
     const cell = document.createElement('div');
     cell.id = `cell_${i}`;
-    cell.addEventListener(
-      'mouseover',
-      () => (cell.style.backgroundColor = 'white')
-    );
+    cell.addEventListener('mouseover', colorCell);
     grid.appendChild(cell);
   }
 }
+
+function colorCell() {
+  if (this.style.backgroundColor === paintColor) return;
+  this.style.backgroundColor = paintColor;
+}
+
+function updateValue(e) {
+  log.textContent = e.target.value;
+}
+
 main();

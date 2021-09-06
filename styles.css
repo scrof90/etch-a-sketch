@@ -12,14 +12,32 @@ h1 {
 }
 
 .toolbar {
+  display: flex;
+  align-items: center;
   margin: 20px 0;
+}
+
+.tool {
+  margin: 0 10px;
+}
+
+.dimensions-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.dimensions-selector > div {
+  margin: 5px 0;
 }
 
 .grid-container {
   display: grid;
+  border: 1px solid black;
+  width: 600px;
+  height: 600px;
 }
 
 .grid-container > div {
   place-self: stretch;
-  background-color: black;
 }
