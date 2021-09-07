@@ -2,39 +2,36 @@ const grid = document.getElementById('gridContainer');
 
 let gridDensity = 20;
 let paintColor = '#000000';
+let rainbowMode = false;
 
-initSlider();
-initColorPicker();
-initResetButton();
+initTools();
 resetGrid();
 
-function initSlider() {
-  const densitySlider = document.getElementById('density');
-  densitySlider.oninput = function () {
+function initTools() {
+  // reset button callback
+  document.getElementById('reset').onclick = () => resetGrid();
+  // density slider callback
+  document.getElementById('density').oninput = function () {
     gridDensity = this.value;
-
-    const densityLabel = document.getElementById('densityLabel');
-    densityLabel.innerText = `${gridDensity}x${gridDensity}`;
+    document.getElementById(
+      'densityLabel'
+    ).innerText = `${gridDensity}x${gridDensity}`;
   };
-}
-
-function initColorPicker() {
-  const colorPicker = document.getElementById('color');
-  colorPicker.oninput = function () {
+  // color picker callback
+  document.getElementById('color').oninput = function () {
     paintColor = this.value;
   };
-}
-
-function initResetButton() {
-  const resetButton = document.getElementById('reset');
-  resetButton.onclick = () => resetGrid();
+  // rainbow button callback
+  document.getElementById('rainbow').onclick = () => {
+    rainbowMode = rainbowMode ? false : true;
+  };
 }
 
 function resetGrid() {
   clearGrid();
   grid.style.gridTemplateRows = `repeat(${gridDensity}, auto [row])`;
   grid.style.gridTemplateColumns = `repeat(${gridDensity}, auto [col])`;
-  fillGrid();
+  fillGrid(gridDensity ** 2);
 }
 
 function clearGrid() {
@@ -45,19 +42,29 @@ function clearGrid() {
   }
 }
 
-function fillGrid() {
-  const numOfCells = gridDensity ** 2;
+function fillGrid(numOfCells) {
   for (let i = 0; i < numOfCells; i++) {
-    const cell = getNewCell();
-    grid.appendChild(cell);
+    grid.appendChild(getNewCell());
   }
 }
 
 function getNewCell() {
   const cell = document.createElement('div');
-  cell.addEventListener('mouseover', function () {
-    if (this.style.backgroundColor === paintColor) return;
-    this.style.backgroundColor = paintColor;
-  });
+  cell.addEventListener('mouseover', changeColor);
   return cell;
+}
+
+function changeColor(e) {
+  e.target.style.backgroundColor = rainbowMode ? getRandomColor() : paintColor;
+}
+
+function getRandomColor() {
+  const red = getRandomInt(255);
+  const green = getRandomInt(255);
+  const blue = getRandomInt(255);
+  return `rgb(${red}, ${green}, ${blue})`;
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
 }
