@@ -40,30 +40,30 @@
     grid.style.gridTemplateRows = `repeat(${gridDensity}, auto [row])`;
     grid.style.gridTemplateColumns = `repeat(${gridDensity}, auto [col])`;
     fillGrid();
+  }
 
-    function clearGrid() {
-      let cell = grid.lastChild;
-      while (cell) {
-        grid.removeChild(cell);
-        cell = grid.lastChild;
-      }
+  function clearGrid() {
+    let cell = grid.lastChild;
+    while (cell) {
+      grid.removeChild(cell);
+      cell = grid.lastChild;
+    }
+  }
+
+  function fillGrid() {
+    const numOfCells = gridDensity ** 2;
+    for (let i = 0; i < numOfCells; i++) {
+      const cell = getNewCell();
+      grid.appendChild(cell);
     }
 
-    function fillGrid() {
-      const numOfCells = gridDensity ** 2;
-      for (let i = 0; i < numOfCells; i++) {
-        const cell = getNewCell();
-        grid.appendChild(cell);
-      }
-
-      function getNewCell() {
-        const cell = document.createElement('div');
-        cell.addEventListener('mouseover', function () {
-          if (this.style.backgroundColor === paintColor) return;
-          this.style.backgroundColor = paintColor;
-        });
-        return cell;
-      }
+    function getNewCell() {
+      const cell = document.createElement('div');
+      cell.addEventListener('mouseover', function () {
+        if (this.style.backgroundColor === paintColor) return;
+        this.style.backgroundColor = paintColor;
+      });
+      return cell;
     }
   }
 })();
