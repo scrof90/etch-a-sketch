@@ -1,55 +1,69 @@
-const grid = document.getElementById('gridContainer');
+(function () {
+  const grid = document.getElementById('gridContainer');
 
-const densitySlider = document.getElementById('density');
-densitySlider.oninput = function () {
-  gridDensity = this.value;
-};
+  let gridDensity = 20;
+  let paintColor = '#000000';
 
-const colorPicker = document.getElementById('color');
-colorPicker.oninput = function () {
-  paintColor = this.value;
-};
+  main();
 
-const resetButton = document.getElementById('reset');
-resetButton.onclick = () => resetGrid();
+  function main() {
+    initSlider();
+    initColorPicker();
+    initResetButton();
+    resetGrid();
 
-let gridDensity = 50;
-let paintColor = '#000000';
+    function initSlider() {
+      const densitySlider = document.getElementById('density');
+      densitySlider.oninput = function () {
+        gridDensity = this.value;
 
-function main() {
-  resetGrid();
-}
+        const densityLabel = document.getElementById('densityLabel');
+        densityLabel.innerText = `${gridDensity}x${gridDensity}`;
+      };
+    }
 
-function resetGrid() {
-  clearGrid();
-  grid.style.gridTemplateRows = `repeat(${gridDensity}, auto [row])`;
-  grid.style.gridTemplateColumns = `repeat(${gridDensity}, auto [col])`;
-  fillGrid();
-}
+    function initColorPicker() {
+      const colorPicker = document.getElementById('color');
+      colorPicker.oninput = function () {
+        paintColor = this.value;
+      };
+    }
 
-function clearGrid() {
-  let cell = grid.lastChild;
-  while (cell) {
-    grid.removeChild(cell);
-    cell = grid.lastChild;
+    function initResetButton() {
+      const resetButton = document.getElementById('reset');
+      resetButton.onclick = () => resetGrid();
+    }
   }
-}
 
-function fillGrid() {
-  const numOfCells = gridDensity ** 2;
-  for (let i = 0; i < numOfCells; i++) {
-    const cell = createCell();
-    grid.appendChild(cell);
+  function resetGrid() {
+    clearGrid();
+    grid.style.gridTemplateRows = `repeat(${gridDensity}, auto [row])`;
+    grid.style.gridTemplateColumns = `repeat(${gridDensity}, auto [col])`;
+    fillGrid();
+
+    function clearGrid() {
+      let cell = grid.lastChild;
+      while (cell) {
+        grid.removeChild(cell);
+        cell = grid.lastChild;
+      }
+    }
+
+    function fillGrid() {
+      const numOfCells = gridDensity ** 2;
+      for (let i = 0; i < numOfCells; i++) {
+        const cell = getNewCell();
+        grid.appendChild(cell);
+      }
+
+      function getNewCell() {
+        const cell = document.createElement('div');
+        cell.addEventListener('mouseover', function () {
+          if (this.style.backgroundColor === paintColor) return;
+          this.style.backgroundColor = paintColor;
+        });
+        return cell;
+      }
+    }
   }
-}
-
-function createCell() {
-  const cell = document.createElement('div');
-  cell.addEventListener('mouseover', function () {
-    if (this.style.backgroundColor === paintColor) return;
-    this.style.backgroundColor = paintColor;
-  });
-  return cell;
-}
-
-main();
+})();
