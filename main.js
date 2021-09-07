@@ -4,6 +4,8 @@ let gridDensity = 20;
 let paintColor = '#000000';
 let rainbowMode = false;
 
+// initialization
+
 initTools();
 resetGrid();
 
@@ -26,6 +28,8 @@ function initTools() {
     rainbowMode = rainbowMode ? false : true;
   };
 }
+
+// grid functions
 
 function resetGrid() {
   clearGrid();
@@ -53,6 +57,8 @@ function getNewCell() {
   cell.addEventListener('mouseover', changeColor);
   return cell;
 }
+
+// cell functions
 
 function changeColor(e) {
   e.target.style.backgroundColor = rainbowMode ? getRandomColor() : paintColor;
