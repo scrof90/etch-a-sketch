@@ -1,14 +1,15 @@
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 h1 {
   text-align: center;
   margin: 40px 0;
   font-size: 40px;
   font-weight: bold;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .toolbar {
@@ -36,4 +37,8 @@ h1 {
 
 .grid-container > div {
   place-self: stretch;
+}
+
+.footer {
+  margin-top: auto;
 }

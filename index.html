@@ -12,9 +12,11 @@
     <script defer type="text/javascript" src="main.js"></script>
   </head>
   <body>
-    <h1>Etch-a-Sketch</h1>
-    <div class="container">
-      <div class="toolbar">
+    <header class="header">
+      <h1>Etch-a-Sketch</h1>
+    </header>
+    <main>
+      <section class="toolbar">
         <div class="tool slider-container">
           <label class="tool" for="density" id="densityLabel">20x20</label>
           <input
@@ -32,8 +34,16 @@
           <label for="color">Color:</label>
           <input type="color" name="color" value="#000000" id="color" />
         </div>
-      </div>
-      <div class="grid-container" id="gridContainer"></div>
-    </div>
+      </section>
+
+      <section class="grid">
+        <div class="grid-container" id="gridContainer"></div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>(C) Scrof, 2021</p>
+    </footer>
   </body>
 </html>
