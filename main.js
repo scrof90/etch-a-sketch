@@ -12,7 +12,7 @@ resetGrid();
 
 function initTools() {
   // reset button callback
-  document.getElementById('reset').onclick = () => resetGrid();
+  document.getElementById('reset').onclick = resetGrid;
   // density slider callback
   document.getElementById('density').oninput = function () {
     gridDensity = this.value;
@@ -26,7 +26,7 @@ function initTools() {
   };
   // rainbow button callback
   document.getElementById('rainbow').onclick = () => {
-    rainbowMode = rainbowMode ? false : true;
+    rainbowMode = !rainbowMode;
   };
   // grid drawing mode callback
   grid.addEventListener('mousedown', () => (drawingMode = true));
@@ -68,7 +68,7 @@ function getNewCell() {
 function changeColor(e) {
   if (drawingMode) {
     if (rainbowMode) {
-      e.target.style.backgroundColor = getRandomColor;
+      e.target.style.backgroundColor = getRandomColor();
     } else {
       e.target.style.backgroundColor = paintColor;
     }
