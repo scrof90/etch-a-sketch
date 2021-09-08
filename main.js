@@ -60,6 +60,7 @@ function fillGrid(numOfCells) {
 
 function getNewCell() {
   const cell = document.createElement('div');
+  cell.draggable = false;
   cell.addEventListener('mouseover', changeColor);
   return cell;
 }
