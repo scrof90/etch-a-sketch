@@ -3,6 +3,7 @@ const grid = document.getElementById('gridContainer');
 let gridDensity = 20;
 let paintColor = '#000000';
 let rainbowMode = false;
+let drawingMode = false;
 
 // initialization
 
@@ -35,6 +36,7 @@ function resetGrid() {
   clearGrid();
   grid.style.gridTemplateRows = `repeat(${gridDensity}, auto [row])`;
   grid.style.gridTemplateColumns = `repeat(${gridDensity}, auto [col])`;
+  document.getElementById('clickHint').hidden = false;
   fillGrid(gridDensity ** 2);
 }
 
@@ -54,6 +56,14 @@ function fillGrid(numOfCells) {
 
 function getNewCell() {
   const cell = document.createElement('div');
+  cell.addEventListener('mousedown', () => {
+    if (drawingMode) {
+      drawingMode = false;
+    } else {
+      drawingMode = true;
+      document.getElementById('clickHint').hidden = true;
+    }
+  });
   cell.addEventListener('mouseover', changeColor);
   return cell;
 }
@@ -61,7 +71,7 @@ function getNewCell() {
 // cell functions
 
 function changeColor(e) {
-  e.target.style.backgroundColor = rainbowMode ? getRandomColor() : paintColor;
+  if (drawingMode) e.target.style.backgroundColor = rainbowMode ? getRandomColor() : paintColor;
 }
 
 function getRandomColor() {
