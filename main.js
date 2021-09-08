@@ -36,7 +36,6 @@ function resetGrid() {
   clearGrid();
   grid.style.gridTemplateRows = `repeat(${gridDensity}, auto [row])`;
   grid.style.gridTemplateColumns = `repeat(${gridDensity}, auto [col])`;
-  document.getElementById('clickHint').hidden = false;
   fillGrid(gridDensity ** 2);
 }
 
@@ -59,9 +58,10 @@ function getNewCell() {
   cell.addEventListener('mousedown', () => {
     if (drawingMode) {
       drawingMode = false;
+      document.getElementById('clickHint').textContent = 'Click to draw';
     } else {
       drawingMode = true;
-      document.getElementById('clickHint').hidden = true;
+      document.getElementById('clickHint').textContent = 'Click to stop';
     }
   });
   cell.addEventListener('mouseover', changeColor);

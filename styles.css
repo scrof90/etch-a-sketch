@@ -40,12 +40,10 @@ h1 {
 }
 
 .hint {
-  position: absolute;
-  top: 50%;
-  width: 50%;
   text-align: center;
   font-size: 18px;
   color: grey;
+  margin: 10px;
 }
 
 .footer {
