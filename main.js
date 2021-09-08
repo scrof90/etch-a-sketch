@@ -26,9 +26,8 @@ function initTools() {
     paintColor = this.value;
   };
   // rainbow button callback
-  document.getElementById('rainbow').onclick = () => {
-    rainbowMode = !rainbowMode;
-  };
+  document.getElementById('rainbow').onclick = () =>
+    (rainbowMode = !rainbowMode);
   // grid drawing mode callback
   grid.addEventListener('mousedown', () => (drawingMode = true));
   // window drawing mode disable callback
