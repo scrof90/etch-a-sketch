@@ -1,5 +1,6 @@
 const grid = document.getElementById('gridContainer');
 
+// TODO: put everything in settings obj
 let gridDensity = 20;
 let paintColor = '#000000';
 let rainbowMode = false;
@@ -37,19 +38,19 @@ function initTools() {
 // grid functions
 
 function resetGrid() {
-  clearGrid();
+  grid.textContent = '';
   grid.style.gridTemplateRows = `repeat(${gridDensity}, auto [row])`;
   grid.style.gridTemplateColumns = `repeat(${gridDensity}, auto [col])`;
   fillGrid(gridDensity ** 2);
 }
 
-function clearGrid() {
+/* function clearGrid() {
   let cell = grid.lastChild;
   while (cell) {
     grid.removeChild(cell);
     cell = grid.lastChild;
   }
-}
+} */
 
 function fillGrid(numOfCells) {
   for (let i = 0; i < numOfCells; i++) {
