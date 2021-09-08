@@ -28,6 +28,10 @@ function initTools() {
   document.getElementById('rainbow').onclick = () => {
     rainbowMode = rainbowMode ? false : true;
   };
+  // grid drawing mode callback
+  grid.addEventListener('mousedown', () => (drawingMode = true));
+  // window drawing mode disable callback
+  window.addEventListener('mouseup', () => (drawingMode = false));
 }
 
 // grid functions
@@ -55,15 +59,6 @@ function fillGrid(numOfCells) {
 
 function getNewCell() {
   const cell = document.createElement('div');
-  cell.addEventListener('mousedown', () => {
-    if (drawingMode) {
-      drawingMode = false;
-      document.getElementById('clickHint').textContent = 'Click to draw';
-    } else {
-      drawingMode = true;
-      document.getElementById('clickHint').textContent = 'Click to stop';
-    }
-  });
   cell.addEventListener('mouseover', changeColor);
   return cell;
 }
@@ -71,7 +66,13 @@ function getNewCell() {
 // cell functions
 
 function changeColor(e) {
-  if (drawingMode) e.target.style.backgroundColor = rainbowMode ? getRandomColor() : paintColor;
+  if (drawingMode) {
+    if (rainbowMode) {
+      e.target.style.backgroundColor = getRandomColor;
+    } else {
+      e.target.style.backgroundColor = paintColor;
+    }
+  }
 }
 
 function getRandomColor() {
