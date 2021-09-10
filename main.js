@@ -1,57 +1,59 @@
-const grid = document.getElementById('gridContainer');
+// global variables
 
-// TODO: put everything in settings obj
-let gridDensity = 20;
-let paintColor = '#000000';
-let rainbowMode = false;
-let drawingMode = false;
+const grid = document.getElementById('grid');
+
+const settings = {
+  gridDensity: 20,
+  paintColor: '#000000',
+  rainbowMode: false,
+  drawingMode: false,
+};
 
 // initialization
 
-initTools();
-resetGrid();
+(function () {
+  initTools();
+  resetGrid();
+})();
 
 function initTools() {
   // reset button callback
-  document.getElementById('reset').onclick = resetGrid;
+  const resetBtn = document.getElementById('resetBtn');
+  resetBtn.onclick = resetGrid;
+
   // density slider callback
-  document.getElementById('density').oninput = function () {
-    gridDensity = this.value;
-    document.getElementById(
-      'densityLabel'
-    ).innerText = `${gridDensity}x${gridDensity}`;
+  const densitySlider = document.getElementById('densitySlider');
+  densitySlider.oninput = () => {
+    settings.gridDensity = densitySlider.value;
+    const densityLabel = document.getElementById('densityLabel');
+    densityLabel.innerText = `${settings.gridDensity}x${settings.gridDensity}`;
   };
+
   // color picker callback
-  document.getElementById('color').oninput = function () {
-    paintColor = this.value;
-  };
+  const colorPicker = document.getElementById('colorPicker');
+  colorPicker.oninput = () => (settings.paintColor = colorPicker.value);
+
   // rainbow button callback
-  document.getElementById('rainbow').onclick = () =>
-    (rainbowMode = !rainbowMode);
-  // grid drawing mode callback
-  grid.addEventListener('mousedown', () => (drawingMode = true));
-  // window drawing mode disable callback
-  window.addEventListener('mouseup', () => (drawingMode = false));
+  const rainbowBtn = document.getElementById('rainbowBtn');
+  rainbowBtn.onclick = () => (settings.rainbowMode = !settings.rainbowMode);
+
+  // grid drawing mode callbacks
+  grid.addEventListener('mousedown', () => (settings.drawingMode = true));
+  grid.addEventListener('mouseup', () => (settings.drawingMode = false));
+  grid.addEventListener('mouseleave', () => (settings.drawingMode = false));
 }
 
 // grid functions
 
 function resetGrid() {
   grid.textContent = '';
-  grid.style.gridTemplateRows = `repeat(${gridDensity}, auto [row])`;
-  grid.style.gridTemplateColumns = `repeat(${gridDensity}, auto [col])`;
-  fillGrid(gridDensity ** 2);
+  grid.style.gridTemplateRows = `repeat(${settings.gridDensity}, auto [row])`;
+  grid.style.gridTemplateColumns = `repeat(${settings.gridDensity}, auto [col])`;
+  fillGrid(settings.gridDensity);
 }
 
-/* function clearGrid() {
-  let cell = grid.lastChild;
-  while (cell) {
-    grid.removeChild(cell);
-    cell = grid.lastChild;
-  }
-} */
-
-function fillGrid(numOfCells) {
+function fillGrid(density) {
+  const numOfCells = density ** 2;
   for (let i = 0; i < numOfCells; i++) {
     grid.appendChild(getNewCell());
   }
@@ -59,7 +61,6 @@ function fillGrid(numOfCells) {
 
 function getNewCell() {
   const cell = document.createElement('div');
-  cell.draggable = false;
   cell.addEventListener('mouseover', changeColor);
   return cell;
 }
@@ -67,11 +68,12 @@ function getNewCell() {
 // cell functions
 
 function changeColor(e) {
-  if (drawingMode) {
-    if (rainbowMode) {
-      e.target.style.backgroundColor = getRandomColor();
+  if (settings.drawingMode) {
+    const cell = e.target;
+    if (settings.rainbowMode) {
+      cell.style.backgroundColor = getRandomColor();
     } else {
-      e.target.style.backgroundColor = paintColor;
+      cell.style.backgroundColor = settings.paintColor;
     }
   }
 }
