@@ -3,8 +3,8 @@
 const grid = document.getElementById('grid');
 
 const settings = {
-  gridDensity: 20,
-  paintColor: '#000000',
+  density: 20,
+  color: '#000000',
   rainbowMode: false,
   drawingMode: false,
 };
@@ -24,14 +24,14 @@ function initTools() {
   // density slider callback
   const densitySlider = document.getElementById('densitySlider');
   densitySlider.oninput = () => {
-    settings.gridDensity = densitySlider.value;
+    settings.density = densitySlider.value;
     const densityLabel = document.getElementById('densityLabel');
-    densityLabel.innerText = `${settings.gridDensity}x${settings.gridDensity}`;
+    densityLabel.innerText = `${settings.density}x${settings.density}`;
   };
 
   // color picker callback
   const colorPicker = document.getElementById('colorPicker');
-  colorPicker.oninput = () => (settings.paintColor = colorPicker.value);
+  colorPicker.oninput = () => (settings.color = colorPicker.value);
 
   // rainbow button callback
   const rainbowBtn = document.getElementById('rainbowBtn');
@@ -47,9 +47,9 @@ function initTools() {
 
 function resetGrid() {
   grid.textContent = '';
-  grid.style.gridTemplateRows = `repeat(${settings.gridDensity}, auto [row])`;
-  grid.style.gridTemplateColumns = `repeat(${settings.gridDensity}, auto [col])`;
-  fillGrid(settings.gridDensity);
+  grid.style.gridTemplateRows = `repeat(${settings.density}, auto [row])`;
+  grid.style.gridTemplateColumns = `repeat(${settings.density}, auto [col])`;
+  fillGrid(settings.density);
 }
 
 function fillGrid(density) {
@@ -73,7 +73,7 @@ function changeColor(e) {
     if (settings.rainbowMode) {
       cell.style.backgroundColor = getRandomColor();
     } else {
-      cell.style.backgroundColor = settings.paintColor;
+      cell.style.backgroundColor = settings.color;
     }
   }
 }
